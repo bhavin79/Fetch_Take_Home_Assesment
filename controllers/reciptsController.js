@@ -9,6 +9,15 @@ export const processRecipt = async (req, res) => {
     purchaseDate = validation.purchaseDateValidation(purchaseDate);
     purchaseTime = validation.purchaseTimeValidation(purchaseTime);
     total = validation.totalAmountValidation(total);
+    if (!items) {
+      throw `items is needed`;
+    }
+    items.forEach((item) => {
+      item.shortDescription = validation.items.shortDescription(
+        item.shortDescription
+      );
+      item.price = validation.items.priceValidation(item.price);
+    });
   } catch (error) {
     return res
       .status(400)

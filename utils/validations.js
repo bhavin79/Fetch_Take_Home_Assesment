@@ -1,23 +1,35 @@
-const validString = (str, name) => {
+const validString = (str, field) => {
   if (str == undefined) {
-    throw `${name} is a required field`;
+    throw `${field} is a required field`;
   }
   if (typeof str != "string") {
-    throw `${name} must valid a string`;
+    throw `${field} must valid a string`;
+  }
+};
+
+const validPrice = (price, field) => {
+  const pattern = /^\d+\.\d{2}$/;
+  if (!pattern.test(price)) {
+    throw `valid ${field} needed`;
+  }
+};
+const validText = (text, field) => {
+  const pattern = /^[\w\s\-&]+$/;
+  if (!pattern.test(text)) {
+    throw `${field} must only include whitespaces, alphanumeric, hyphen, and ampersand`;
   }
 };
 
 const retailerValidation = (retailer) => {
-  retailer = retailer.trim();
   validString(retailer, "reatiler");
-  const pattern = /^[\w\s\-&]+$/;
-  if (!pattern.test(retailer)) {
-    throw `reatailer must only include whitespaces, alphanumeric, hyphen, and ampersand`;
-  }
+  retailer = retailer.trim();
+  validText(retailer, "reatiler");
 };
+
 const purchaseDateValidation = (date) => {
-  date = date.trim();
   validString(date, "Purchase date");
+  date = date.trim();
+
   const pattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
   if (!pattern.test(date)) {
     throw `purchase date must follow this format yyyy-mm-dd`;
@@ -35,7 +47,6 @@ const purchaseDateValidation = (date) => {
 };
 
 const purchaseTimeValidation = (time) => {
-  time = time.trim();
   validString(time, "Purchase time");
   const pattern = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
   time = time.trim();
@@ -45,21 +56,34 @@ const purchaseTimeValidation = (time) => {
   return time;
 };
 const totalAmountValidation = (amount) => {
-  amount = amount.trim();
-
   validString(amount, "total");
-  const pattern = /^\d+\.\d{2}$/;
-  if (!pattern.test(amount)) {
-    throw `valid amount needed`;
-  }
+  amount = amount.trim();
+  validPrice(amount, "total");
   return amount;
 };
+
+const shortDescription = (desc) => {
+  validString(desc, "Short Description");
+  desc = desc.trim();
+  validText(desc, "Short description");
+  return desc;
+};
+
+const priceValidation = (amount) => {
+  validString(amount, "price");
+  amount = amount.trim();
+  validPrice(amount, "price");
+  return amount;
+};
+
+const items = { shortDescription, priceValidation };
 
 const validation = {
   retailerValidation,
   purchaseDateValidation,
   purchaseTimeValidation,
   totalAmountValidation,
+  items,
 };
 
 export default validation;
