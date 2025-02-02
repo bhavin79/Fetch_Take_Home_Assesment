@@ -8,6 +8,7 @@ const validString = (str, name) => {
 };
 
 const retailerValidation = (retailer) => {
+  retailer = retailer.trim();
   validString(retailer, "reatiler");
   const pattern = /^[\w\s\-&]+$/;
   if (!pattern.test(retailer)) {
@@ -15,6 +16,7 @@ const retailerValidation = (retailer) => {
   }
 };
 const purchaseDateValidation = (date) => {
+  date = date.trim();
   validString(date, "Purchase date");
   const pattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
   if (!pattern.test(date)) {
@@ -33,18 +35,31 @@ const purchaseDateValidation = (date) => {
 };
 
 const purchaseTimeValidation = (time) => {
+  time = time.trim();
   validString(time, "Purchase time");
   const pattern = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
   time = time.trim();
   if (!pattern.test(time)) {
     throw `valid time is needed`;
   }
+  return time;
+};
+const totalAmountValidation = (amount) => {
+  amount = amount.trim();
+
+  validString(amount, "total");
+  const pattern = /^\d+\.\d{2}$/;
+  if (!pattern.test(amount)) {
+    throw `valid amount needed`;
+  }
+  return amount;
 };
 
 const validation = {
   retailerValidation,
   purchaseDateValidation,
   purchaseTimeValidation,
+  totalAmountValidation,
 };
 
 export default validation;

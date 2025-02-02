@@ -8,6 +8,7 @@ export const processRecipt = async (req, res) => {
     retailer = validation.retailerValidation(retailer);
     purchaseDate = validation.purchaseDateValidation(purchaseDate);
     purchaseTime = validation.purchaseTimeValidation(purchaseTime);
+    total = validation.totalAmountValidation(total);
   } catch (error) {
     return res
       .status(400)
