@@ -7,6 +7,7 @@ export const processRecipt = async (req, res) => {
   try {
     retailer = validation.retailerValidation(retailer);
     purchaseDate = validation.purchaseDateValidation(purchaseDate);
+    purchaseTime = validation.purchaseTimeValidation(purchaseTime);
   } catch (error) {
     return res
       .status(400)

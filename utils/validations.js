@@ -21,14 +21,7 @@ const purchaseDateValidation = (date) => {
     throw `purchase date must follow this format yyyy-mm-dd`;
   }
   let generateDate = new Date(date);
-  console.log(
-    generateDate,
-    generateDate.getUTCFullYear(),
-    generateDate.getUTCMonth(),
-    generateDate.getUTCDate()
-  );
   date = date.split("-");
-
   if (
     generateDate.getUTCFullYear() != date[0] ||
     generateDate.getUTCMonth() + 1 != date[1] ||
@@ -39,6 +32,19 @@ const purchaseDateValidation = (date) => {
   return date;
 };
 
-const validation = { retailerValidation, purchaseDateValidation };
+const purchaseTimeValidation = (time) => {
+  validString(time, "Purchase time");
+  const pattern = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
+  time = time.trim();
+  if (!pattern.test(time)) {
+    throw `valid time is needed`;
+  }
+};
+
+const validation = {
+  retailerValidation,
+  purchaseDateValidation,
+  purchaseTimeValidation,
+};
 
 export default validation;
