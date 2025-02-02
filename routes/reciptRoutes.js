@@ -1,15 +1,10 @@
 import { Router } from "express";
+import { getPoints, processRecipt } from "../controllers/reciptsController.js";
 
 const router = Router();
 
-router.route("/process").post((req, res) => {
-  return res.status(200).json({ message: "Testing Route for process" });
-});
+router.route("/process").post(processRecipt);
 
-router.route("/:id/points").get((req, res) => {
-  return res
-    .status(200)
-    .json({ message: `Testing route for points with param ${req.params.id}` });
-});
+router.route("/:id/points").get(getPoints);
 
 export default router;
