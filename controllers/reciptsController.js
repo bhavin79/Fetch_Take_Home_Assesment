@@ -6,8 +6,11 @@ export const processRecipt = async (req, res) => {
   let { retailer, purchaseDate, purchaseTime, items, total } = req.body;
   try {
     retailer = validation.retailerValidation(retailer);
+    purchaseDate = validation.purchaseDateValidation(purchaseDate);
   } catch (error) {
-    res.status(400).json({ description: `The receipt is invalid. ${error}` });
+    return res
+      .status(400)
+      .json({ description: `The receipt is invalid. ${error}` });
   }
   return res.status(200).json({ message: "Testing Route for process" });
 };

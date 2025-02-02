@@ -14,7 +14,31 @@ const retailerValidation = (retailer) => {
     throw `reatailer must only include whitespaces, alphanumeric, hyphen, and ampersand`;
   }
 };
+const purchaseDateValidation = (date) => {
+  validString(date, "Purchase date");
+  const pattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
+  if (!pattern.test(date)) {
+    throw `purchase date must follow this format yyyy-mm-dd`;
+  }
+  let generateDate = new Date(date);
+  console.log(
+    generateDate,
+    generateDate.getUTCFullYear(),
+    generateDate.getUTCMonth(),
+    generateDate.getUTCDate()
+  );
+  date = date.split("-");
 
-const validation = { retailerValidation };
+  if (
+    generateDate.getUTCFullYear() != date[0] ||
+    generateDate.getUTCMonth() + 1 != date[1] ||
+    generateDate.getUTCDate() != date[2]
+  ) {
+    throw `Valid Date is needed`;
+  }
+  return date;
+};
+
+const validation = { retailerValidation, purchaseDateValidation };
 
 export default validation;
