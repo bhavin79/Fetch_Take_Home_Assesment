@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
 import { getRedisClient } from "../config/redisConnect.js";
 import validation from "../utils/validations.js";
-
+import dataFunctions from "../data/receiptsData.js";
 /**
  * Path: /receipts/process
  * Method: Post
  */
-export const processRecipt = async (req, res) => {
+export const processReceipt = async (req, res) => {
   let { retailer, purchaseDate, purchaseTime, items, total } = req.body;
 
   //validations
@@ -84,11 +84,8 @@ export const processRecipt = async (req, res) => {
   //Generate UUID
   let id = uuidv4();
 
-  //Connect to redis client
-  const redisClient = await getRedisClient();
-
-  //Setting points in redis
-  await redisClient.SET(id, points);
+  //Store in database;
+  await dataFunctions.storePoints(id, points);
 
   return res.status(200).json({ id });
 };
@@ -100,12 +97,16 @@ export const processRecipt = async (req, res) => {
 export const getPoints = async (req, res) => {
   let { id } = req.params;
   id = id.trim();
-  const redisClient = await getRedisClient();
-  let points = await redisClient.get(id);
+  let points = undefined;
+  try {
+    points = await dataFunctions.getPoints(id);
+  } catch (error) {
+    return res.status(404).json("No receipt found for that ID.");
+
+  }
   if (points != undefined) {
     return res.status(200).json({
       points: Number(points),
     });
   }
-  return res.status(404).json("No receipt found for that ID.");
 };
