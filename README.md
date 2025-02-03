@@ -1,8 +1,12 @@
-Fetch Take Home Assessment, Feb 2, 2025
+# Fetch Take Home Assessment, Feb 2, 2025
 
-# Assumptions
+## Assumptions
 1. The time between 14:00 - 16:00 is inclusive
 2. String with just empty spaces is considered invalid - " " 
+
+## Tech Stack
+1. Express.js
+2. Redis Stack
 
 ## Runing project
 ### Option 1 - Running it with docker
