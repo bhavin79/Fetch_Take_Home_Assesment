@@ -24,10 +24,12 @@ const retailerValidation = (retailer) => {
   validString(retailer, "reatiler");
   retailer = retailer.trim();
   validText(retailer, "reatiler");
+  return retailer;
 };
 
 const purchaseDateValidation = (date) => {
   validString(date, "Purchase date");
+  let temp = date.trim();
   date = date.trim();
 
   const pattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
@@ -43,7 +45,7 @@ const purchaseDateValidation = (date) => {
   ) {
     throw `Valid Date is needed`;
   }
-  return date;
+  return temp;
 };
 
 const purchaseTimeValidation = (time) => {
