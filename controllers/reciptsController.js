@@ -15,7 +15,7 @@ export const processReceipt = async (req, res) => {
     purchaseDate = validation.purchaseDateValidation(purchaseDate);
     purchaseTime = validation.purchaseTimeValidation(purchaseTime);
     total = validation.totalAmountValidation(total);
-    if (!items) {
+    if (!items || Array.isArray(items) == false || items.length == 0) {
       throw `items is needed`;
     }
     items.forEach((item) => {

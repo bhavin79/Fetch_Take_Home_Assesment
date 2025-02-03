@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "4000:3000" # Change the first port if its already in use. 
+      - "3000:3000" # Change the first port if its already in use. 
     networks:
       - internet-network 
     restart: always 
