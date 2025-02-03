@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.21.2",
+    "fetch_take_home_assesment": "file:",
     "helmet": "^8.0.0",
     "nodemon": "^3.1.9",
     "redis": "^4.7.0",

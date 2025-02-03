@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:3000" # Change the first port if its already in use. 
+    networks:
+      - internet-network 
+    restart: always 
+
+  redis-stack:
+    image: redis/redis-stack:latest
+    networks:
+      - internet-network
+    restart: always
+
+networks:
+  internet-network:
+    driver: bridge
