@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { getRedisClient } from "../config/redisConnect.js";
 import validation from "../utils/validations.js";
 
 let data = {};
@@ -90,24 +91,24 @@ export const processRecipt = async (req, res) => {
   }
   console.log("14:00 to 16:00", points);
   let id = uuidv4();
-  //Incase there is a collision recalculate;
-  while (data[id]) {
-    id = uuidv4();
-  }
-  data[id] = points;
-
+  const redisClient = await getRedisClient();
+  await redisClient.SET(id, points);
+  //   data[id] = points;
   return res.status(200).json({ id });
 };
 
 export const getPoints = async (req, res) => {
   let { id } = req.params;
   id = id.trim();
-  let points = data[id];
-  console.log(data);
+  const redisClient = await getRedisClient();
+  let points = await redisClient.get(id);
+  //   console.log(data);
   if (points != undefined) {
     return res.status(200).json({
-      points,
+      points: Number(points),
     });
   }
   return res.status(404).json("No receipt found for that ID.");
 };
+
+//Redis -> Data layer;
