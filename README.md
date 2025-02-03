@@ -12,11 +12,11 @@
 ### Option 1 - Running it with docker
 1. Clone the repository
 2. The default port is 3000. If that port is unavailable, update the port in docker-compose.yml (it has appropriate comments).
-3. run "docker-compose up -d"
+3. run "docker-compose up"
 
 ### Option 2 - Running it without docker
 1. Verify that Node.js is installed before proceeding.
 2. Clone the repository
-3. At the root level. Run following command "npm install"
-4. Open the index.js file at the root level and uncomment ToggleToObject();. This will switch data storage from Redis Stack to a simple JavaScript object.
-5. Run following command "npm start"
+3. At the root level. Run following command in the terminal "npm install"
+4. Open the index.js file at the root level and uncomment ToggleToObject() method;. This will switch data storage from Redis Stack to a simple JavaScript object.
+5. Run following command in the terminal "npm start"
